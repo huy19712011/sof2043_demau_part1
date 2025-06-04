@@ -20,6 +20,7 @@ target/
 *.ipr
 
 ### NetBeans ###
+target/
 /nbproject/private/
 /nbbuild/
 /dist/
@@ -31,3 +32,15 @@ build/
 
 ### VS Code ###
 .vscode/
+target/classes/com/mycompany/sof2043_demau_part1/entity/Student.class
+target/classes/com/mycompany/sof2043_demau_part1/Sof2043_demau_part1.class
+target/classes/com/mycompany/sof2043_demau_part1/ui/StudentJFrame$1.class
+target/classes/com/mycompany/sof2043_demau_part1/ui/StudentJFrame$2.class
+target/classes/com/mycompany/sof2043_demau_part1/ui/StudentJFrame$3.class
+target/classes/com/mycompany/sof2043_demau_part1/ui/StudentJFrame$4.class
+target/classes/com/mycompany/sof2043_demau_part1/ui/StudentJFrame$5.class
+target/classes/com/mycompany/sof2043_demau_part1/ui/StudentJFrame.class
+target/classes/com/mycompany/sof2043_demau_part1/util/XJdbc.class
+target/classes/com/mycompany/sof2043_demau_part1/util/XQuery.class
+target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
