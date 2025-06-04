@@ -75,8 +75,15 @@ public class XQuery {
                 try {
                     Object value = resultSet.getObject(name.substring(3));
                     method.invoke(bean, value);
-                } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | SQLException e) {
-                    System.out.printf("+ Column '%s' not found!\r\n", name.substring(3));
+                } catch (IllegalAccessException e) {
+                    System.out.printf("'%s': method does not have access!\r\n", name.substring(3));
+                } catch (IllegalArgumentException e) {
+                    System.out.printf("'%s': illegal argument!\r\n", name.substring(3));
+                } catch (InvocationTargetException e) {
+                    System.out.printf("'%s': exception thrown by an invoked method or constructor!\r\n", name.substring(3));
+                } catch (SQLException e) {
+                    System.out.printf("Error at: '%s' !!!\r\n", name.substring(3));
+                    e.printStackTrace();
                 }
             }
         }
