@@ -2,6 +2,7 @@ package com.mycompany.sof2043_demau_part1.util;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -69,20 +70,33 @@ public class XQuery {
     private static <B> B readBean(ResultSet resultSet, Class<B> beanClass) throws Exception {
         B bean = beanClass.getDeclaredConstructor().newInstance();
         Method[] methods = beanClass.getDeclaredMethods();
-        for(Method method: methods){
+        for (Method method : methods) {
             String name = method.getName();
             if (name.startsWith("set") && method.getParameterCount() == 1) {
                 try {
                     Object value = resultSet.getObject(name.substring(3));
+
+                    if (value instanceof BigDecimal) {
+                        Class<?> paramType = method.getParameterTypes()[0];
+                        if (paramType == Double.class || paramType == double.class) {
+                            value = ((BigDecimal) value).doubleValue();
+                        } else if (paramType == Float.class || paramType == float.class) {
+                            value = ((BigDecimal) value).floatValue();
+                        } else if (paramType == Integer.class || paramType == int.class) {
+                            value = ((BigDecimal) value).intValue();
+                        }
+                    }
+
                     method.invoke(bean, value);
                 } catch (IllegalAccessException e) {
                     System.out.printf("'%s': method does not have access!\r\n", name.substring(3));
                 } catch (IllegalArgumentException e) {
                     System.out.printf("'%s': illegal argument!\r\n", name.substring(3));
+                    e.printStackTrace();
                 } catch (InvocationTargetException e) {
                     System.out.printf("'%s': exception thrown by an invoked method or constructor!\r\n", name.substring(3));
                 } catch (SQLException e) {
-                    System.out.printf("Error at: '%s' !!!\r\n", name.substring(3));
+                    System.out.printf("Error at: '%s'!!!\r\n", name.substring(3));
                     e.printStackTrace();
                 }
             }

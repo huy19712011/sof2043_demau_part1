@@ -31,19 +31,21 @@ public class Sof2043_demau_part1 {
 //                        name NVARCHAR(30) NOT NULL
 //                        );
 //                     """;
-//        String sql = """
-//                        INSERT INTO categories(id, name)
-//                        VALUES(?, ?);
-//                     """;
-//        XJdbc.executeUpdate(sql, 3, "Category 3");
+        String sql = """
+                        INSERT INTO categories(id, name)
+                        VALUES(?, ?);
+                     """;
+        XJdbc.executeUpdate(sql, 1, "Category 1");
+        XJdbc.executeUpdate(sql, 2, "Category 2");
+        XJdbc.executeUpdate(sql, 3, "Category 3");
 
         String sql2 = """
                          INSERT INTO products(id, name, price, categoryId)
                          VALUES(?, ?, ?, ?);
                       """;
-//        XJdbc.executeUpdate(sql2, 1, "Product 1", 11.9, 1);
-//        XJdbc.executeUpdate(sql2, 2, "Product 2", 12.9, 2);
-//        XJdbc.executeUpdate(sql2, 3, "Product 3", 13.9, 3);
+        XJdbc.executeUpdate(sql2, 1, "Product 1", 11.9, 1);
+        XJdbc.executeUpdate(sql2, 2, "Product 2", 12.9, 2);
+        XJdbc.executeUpdate(sql2, 3, "Product 3", 13.9, 3);
         XJdbc.executeUpdate(sql2, 4, "Product 4", 14.9, 1);
 
         Connection connection = null;
@@ -56,13 +58,13 @@ public class Sof2043_demau_part1 {
             connection = XJdbc.openConnection();
             System.out.println("Connected...");
 
-            String sql = """
+            String sql3 = """
                             SELECT * FROM products;
                          """;
 
             statement = connection.createStatement();
 
-            resultSet = statement.executeQuery(sql);
+            resultSet = statement.executeQuery(sql3);
 
             while (resultSet.next()) {
                 System.out.println("Product Id: " + resultSet.getInt("id"));
