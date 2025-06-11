@@ -35,7 +35,8 @@ public class ProductJFrame extends javax.swing.JFrame {
         defaultTableModel.addColumn("Price");
         defaultTableModel.addColumn("Category");
 
-        fillTable();
+        List<Product> products = productDao.findAll();
+        fillTable(products);
 
     }
 
@@ -50,14 +51,13 @@ public class ProductJFrame extends javax.swing.JFrame {
         }
     }
 
-    private void fillTable() {
+    private void fillTable(List<Product> products) {
 
         defaultTableModel.setRowCount(0);
 
         // rows
-        List<Product> products = productDao.findAll();
-        products.forEach(System.out::println);
-
+//        List<Product> products = productDao.findAll();
+//        products.forEach(System.out::println);
         for (Product product : products) {
 
 //            long categoryId = product.getCategoryId();
@@ -78,7 +78,8 @@ public class ProductJFrame extends javax.swing.JFrame {
         // read data from form
         int id = Integer.parseInt(jTextField1.getText());
         String name = jTextField2.getText();
-        float price = Float.parseFloat(jTextField3.getText());
+//        float price = Float.parseFloat(jTextField3.getText());
+        double price = Double.parseDouble(jTextField3.getText());
 
         int selectedIndex = jComboBox1.getSelectedIndex();
 
@@ -114,6 +115,8 @@ public class ProductJFrame extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jTextField4 = new javax.swing.JTextField();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -164,6 +167,13 @@ public class ProductJFrame extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setText("Search");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -185,11 +195,16 @@ public class ProductJFrame extends javax.swing.JFrame {
                             .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
                             .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton3)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton4)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -216,8 +231,12 @@ public class ProductJFrame extends javax.swing.JFrame {
                     .addComponent(jButton2)
                     .addComponent(jButton3)
                     .addComponent(jButton1))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -250,7 +269,9 @@ public class ProductJFrame extends javax.swing.JFrame {
 
         clearForm();
 
-        fillTable();
+//        fillTable();
+        List<Product> products = productDao.findAll();
+        fillTable(products);
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -262,7 +283,9 @@ public class ProductJFrame extends javax.swing.JFrame {
 
         clearForm();
 
-        fillTable();
+//        fillTable();
+        List<Product> products = productDao.findAll();
+        fillTable(products);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -273,8 +296,21 @@ public class ProductJFrame extends javax.swing.JFrame {
 
         clearForm();
 
-        fillTable();
+//        fillTable();
+        List<Product> products = productDao.findAll();
+        fillTable(products);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        // Button Search
+        String keyword = jTextField4.getText().trim();
+        List<Product> foundProducts = productDao.searchByName(keyword);
+        foundProducts.forEach(p -> System.out.println(p.getName()));
+
+        fillTable(foundProducts);
+
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -315,6 +351,7 @@ public class ProductJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -325,5 +362,6 @@ public class ProductJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 }

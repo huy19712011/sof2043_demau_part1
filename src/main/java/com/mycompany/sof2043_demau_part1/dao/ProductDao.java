@@ -18,6 +18,8 @@ public class ProductDao {
     String UPDATE_SQL = "UPDATE products SET name=?, price=?, categoryId=? WHERE id=?";
     String DELETE_SQL = "DELETE FROM products WHERE id=?";
 
+    String SEARCH_BY_NAME_SQL = "SELECT * FROM products WHERE name LIKE ?";
+
     public List<Product> findAll() {
 
         return XQuery.getBeanList(Product.class, FIND_ALL_SQL);
@@ -64,5 +66,13 @@ public class ProductDao {
 
         return e;
 
+    }
+
+    public List<Product> searchByName(String keyword) {
+
+        String[] values = {
+            "%" + keyword + "%"
+        };
+        return XQuery.getBeanList(Product.class, SEARCH_BY_NAME_SQL, values);
     }
 }

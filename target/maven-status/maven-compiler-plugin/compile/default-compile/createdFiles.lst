@@ -13,6 +13,7 @@ com\mycompany\sof2043_demau_part1\entity\Product.class
 com\mycompany\sof2043_demau_part1\ui\ProductJFrame$5.class
 com\mycompany\sof2043_demau_part1\ui\StudentJFrame$4.class
 com\mycompany\sof2043_demau_part1\dao\StudentDao.class
+com\mycompany\sof2043_demau_part1\ui\ProductJFrame$6.class
 com\mycompany\sof2043_demau_part1\ui\ProductJFrame$4.class
 com\mycompany\sof2043_demau_part1\Sof2043_demau_part1.class
 com\mycompany\sof2043_demau_part1\util\XQuery.class
