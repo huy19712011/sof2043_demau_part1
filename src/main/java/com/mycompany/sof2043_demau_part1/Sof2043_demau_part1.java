@@ -20,7 +20,7 @@ public class Sof2043_demau_part1 {
         CREATE TABLE products(
         id BIGINT PRIMARY KEY,
         name NVARCHAR(30) NOT NULL,
-        price FLOAT NOT NULL,
+        price DECIMAL(9, 2) NOT NULL,
         categoryId BIGINT NOT NULL,
         FOREIGN KEY (categoryId) REFERENCES categories(id)
         );
